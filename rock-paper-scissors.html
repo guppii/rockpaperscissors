@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+</head>
+<body>
+  <script>
+    const VALID_CHOICES = ['ROCK','PAPER','SCISSORS'];
+    const NUM_GAMES = 5;
+
+    //generate int in this range: [start, end)
+    function getRandomInt(start, end){
+      return Math.floor(Math.random() * (end - start) + start)
+    }
+    
+    function capitalize(str){
+      str = str.trim();
+      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    }
+
+    //generate random computer choice
+    function computerPlay(){
+      let idx = getRandomInt(0, VALID_CHOICES.length);
+      return VALID_CHOICES[idx];
+    }
+
+    //true if 'a' wins; false if 'b' wins; 'draw' if tie
+    function getOutcome(a, b){
+      a = a.toUpperCase();
+      b = b.toUpperCase();
+      switch (a){
+        case (b):
+          return 'draw';
+        case 'ROCK':
+          return b === 'SCISSORS' ? true : false;
+        case 'PAPER':
+          return b === 'ROCK' ? true : false;
+        case 'SCISSORS':
+          return b === 'PAPER' ? true : false;
+        default:
+          return 'draw';
+      }
+    }
+
+    function playRound(userChoice, compChoice){
+      userChoice = userChoice.toUpperCase();
+      compChoice = compChoice.toUpperCase();
+      let userWon = getOutcome(userChoice, compChoice);
+      userChoice = capitalize(userChoice);
+      compChoice = capitalize(compChoice);
+      let message = '';
+      if (userWon === true){
+        message =   'You Win! ' + userChoice 
+                  + ' beats ' + compChoice + '!';
+      }
+      else if (userWon === false){
+        message =   'You Lose! ' + compChoice 
+                  + ' beats ' + userChoice + '!';
+      }
+      else{
+        message =   compChoice + ' beats ' 
+                  + userChoice + '??? It\'s a draw!';
+      }
+      console.log(message);
+      return userWon;
+    }
+
+    function game(){
+      let gameCount = 0;
+      let userWins = 0;
+      let compWins = 0;
+      do{
+          let userChoice = prompt('Enter rock paper or scissors');
+          let compChoice = computerPlay();
+          if(VALID_CHOICES.indexOf(userChoice.toUpperCase()) === -1){
+            alert('That\'s not a valid choice! Picking for you...')
+             userChoice = computerPlay();
+          }
+          
+          let userWon = playRound(userChoice, compChoice);
+          if(userWon === true){
+            userWins++;
+          }
+          else if (userWon === false){
+            compWins++;
+          }
+          gameCount++;
+      } while (gameCount < NUM_GAMES);
+      console.log(userWins >= compWins ? 'You won!!!' : 'You lost!');
+    }
+  </script>
+</body>
+</html>
