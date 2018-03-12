@@ -60,7 +60,7 @@
         message =   compChoice + ' beats ' 
                   + userChoice + '??? It\'s a draw!';
       }
-      console.log(message);
+      alert(message);
       return userWon;
     }
 
@@ -69,7 +69,7 @@
       let userWins = 0;
       let compWins = 0;
       do{
-          let userChoice = prompt('Enter rock paper or scissors');
+          let userChoice = prompt('Round ' + (gameCount + 1) + ' of ' + NUM_GAMES + '. Enter rock paper or scissors');
           let compChoice = computerPlay();
           if(VALID_CHOICES.indexOf(userChoice.toUpperCase()) === -1){
             alert('That\'s not a valid choice! Picking for you...')
@@ -85,8 +85,9 @@
           }
           gameCount++;
       } while (gameCount < NUM_GAMES);
-      console.log(userWins >= compWins ? 'You won!!!' : 'You lost!');
+      alert(userWins >= compWins ? 'You won!!!' : 'You lost!');
     }
+    game();
   </script>
 </body>
 </html>
